@@ -21,6 +21,7 @@ dev = [
 
 [tool.ruff]
 fix = true
+unsafe-fixes = true
 src = [ "app"]
 exclude = [".venv"]
 
