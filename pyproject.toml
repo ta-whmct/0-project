@@ -57,7 +57,7 @@ select = [
     "SLF", # flake8-self (SLF)
     "SIM", # flake8-simplify (SIM)
     "SLOT", # flake8-slots (SLOT)
-    "TC", # flake8-type-checking (TC)
+    "TC", # flake8-type-checking (TC): TC001
     "ARG", # flake8-unused-arguments (ARG)
     "PTH", # flake8-use-pathlib (PTH)
     "FLY", # flynt (FLY)
