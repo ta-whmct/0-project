@@ -8,12 +8,12 @@ if TYPE_CHECKING:
     from app.domain.value_objects import ProductMetric
 
 
-@dataclass
+@dataclass(slots=True)
 class BunkerGate:
     state: BunkerGateState
 
 
-@dataclass
+@dataclass(slots=True)
 class Bunker:
     uuid: UUID
     product_type: str
