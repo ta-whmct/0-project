@@ -1,4 +1,4 @@
-from typing import Literal
+from typing import TYPE_CHECKING, Literal
 
 from pydantic import Field
 from pydantic_settings import (
@@ -8,8 +8,10 @@ from pydantic_settings import (
 
 from app.config.app import AppConfig
 from app.config.constants import BASE_DIR
-from app.config.database import DatabaseConfig
 from app.config.logging import LoggingConfig
+
+if TYPE_CHECKING:
+    from app.config.database import DatabaseConfig
 
 
 class Settings(BaseSettings):
