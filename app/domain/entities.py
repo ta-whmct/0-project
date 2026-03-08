@@ -1,8 +1,11 @@
 from dataclasses import dataclass
-from uuid import UUID
+from typing import TYPE_CHECKING
 
-from app.domain.constants import BunkerGateState
-from app.domain.value_objects import ProductMetric
+if TYPE_CHECKING:
+    from uuid import UUID
+
+    from app.domain.constants import BunkerGateState
+    from app.domain.value_objects import ProductMetric
 
 
 @dataclass
