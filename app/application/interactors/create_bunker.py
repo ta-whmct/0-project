@@ -14,7 +14,7 @@ class CreateBunkerInteractor:
     async def __call__(self, dto: NewBunker) -> UUID:
         uuid = self._uuid_generator()
         bunker = Bunker(
-            uuid=uuid,
+            id=uuid,
             max_volume=dto.max_volume,
             pre_close_value=dto.pre_close_value,
             current_volume=dto.current_volume,
