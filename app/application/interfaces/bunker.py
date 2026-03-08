@@ -1,4 +1,5 @@
 from typing import Protocol
+from uuid import UUID
 
 from app.domain.entities import Bunker
 
@@ -8,7 +9,7 @@ class BunkerSaver(Protocol):
 
 
 class BunkerReader(Protocol):
-    async def read_by_uuid(self, uuid: str) -> Bunker | None: ...
+    async def read_by_uuid(self, uuid: UUID) -> Bunker | None: ...
 
 
 class UsersReader(Protocol):
