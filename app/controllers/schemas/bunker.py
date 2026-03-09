@@ -11,7 +11,7 @@ class BunkerBaseSchema(BaseModel):
     current_volume: int
     pre_close_value: int
     name: str = Field(
-        min_length=BUNKER_NAME_CONSTR.min, max_length=BUNKER_NAME_CONSTR.max
+        min_length=BUNKER_NAME_CONSTR["min"], max_length=BUNKER_NAME_CONSTR["max"]
     )
 
 

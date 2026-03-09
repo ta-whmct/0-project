@@ -24,6 +24,7 @@ class BunkerGateway(BunkerReader, BunkerSaver):
             current_volume=bunker.current_volume,
             pre_close_value=bunker.pre_close_value,
             product_type=bunker.product_type,
+            name=bunker.name,
         )
 
     async def save(self, bunker: Bunker) -> None:
@@ -47,6 +48,7 @@ class BunkerGateway(BunkerReader, BunkerSaver):
                 max_volume=bunker.max_volume,
                 current_volume=bunker.current_volume,
                 pre_close_value=bunker.pre_close_value,
+                name=bunker.name,
             )
             for bunker in bunkers.all()
         ]

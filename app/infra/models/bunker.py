@@ -27,8 +27,8 @@ class Bunker(Base):
     __table_args__ = (
         CheckConstraint(
             and_(
-                func.length(name) >= BUNKER_NAME_CONSTR.min,
-                func.length(name) <= BUNKER_NAME_CONSTR.max,
+                func.length(name) >= BUNKER_NAME_CONSTR["min"],
+                func.length(name) <= BUNKER_NAME_CONSTR["max"],
             ),
             name="name_length",
         ),

@@ -28,21 +28,16 @@ router = APIRouter(
 )
 async def get_bunker_list_endpoint(
     get_bunker_list: FromDishka[GetBunkerListInteractor],
-) -> list[entities.Bunker] | None:
+) -> list[entities.Bunker]:
     bunkers = await get_bunker_list()
-    if bunkers is not None:
-        return bunkers
-    return None
+    return bunkers
 
 
-@router.post(
-    "/",
-    status_code=status.HTTP_201_CREATED,
-)
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=BunkerReadSchema)
 async def create_bunker_endpoint(
     new_bunker: Annotated[NewBunker, Depends(new_bunker_dep)],
     create_bunker: FromDishka[CreateBunkerInteractor],
-) -> BunkerReadSchema:
+) -> entities.Bunker:
     return await create_bunker(new_bunker)
 
 

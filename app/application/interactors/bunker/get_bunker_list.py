@@ -6,5 +6,5 @@ class GetBunkerListInteractor:
     def __init__(self, reader: BunkerReader) -> None:
         self._reader = reader
 
-    async def __call__(self) -> list[Bunker] | None:
+    async def __call__(self) -> list[Bunker]:
         return await self._reader.read()
