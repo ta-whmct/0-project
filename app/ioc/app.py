@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import (
 
 from app.application.interactors.create_bunker import CreateBunkerInteractor
 from app.application.interactors.get_bunker import GetBunkerInteractor
+from app.application.interactors.transaction_manager import TransactionManagerAsync
 from app.application.interfaces.bunker import BunkerReader, BunkerSaver
 from app.application.interfaces.uuid_generator import UUIDGenerator
 from app.config.settings import settings
@@ -39,7 +40,7 @@ class AppProvider(Provider):
     async def get_session(
         self,
         session_maker: async_sessionmaker[AsyncSession],
-    ) -> AsyncGenerator[AsyncSession]:
+    ) -> AsyncGenerator[AnyOf[AsyncSession, TransactionManagerAsync]]:
         async with session_maker() as session:
             yield session
 
@@ -49,7 +50,6 @@ class AppProvider(Provider):
         provides=AnyOf[
             BunkerReader,
             BunkerSaver,
-            BunkerReader,
         ],
     )
 
