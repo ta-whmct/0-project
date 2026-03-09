@@ -35,3 +35,17 @@ class BunkerGateway(BunkerReader, BunkerSaver):
             product_type=bunker.product_type,
         )
         self._session.add(bunker_model)
+
+    async def read(self) -> list[Bunker]:
+        stmt = select(models.Bunker).order_by(models.Bunker.id)
+        bunkers = await self._session.scalars(stmt)
+        return [
+            Bunker(
+                id=bunker.id,
+                product_type=bunker.product_type,
+                max_volume=bunker.max_volume,
+                current_volume=bunker.current_volume,
+                pre_close_value=bunker.pre_close_value,
+            )
+            for bunker in bunkers.all()
+        ]

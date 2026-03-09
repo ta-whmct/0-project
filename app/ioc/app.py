@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import (
 
 from app.application.interactors.bunker.create_bunker import CreateBunkerInteractor
 from app.application.interactors.bunker.get_bunker import GetBunkerInteractor
+from app.application.interactors.bunker.get_bunker_list import GetBunkerListInteractor
 from app.application.interactors.transaction_manager import TransactionManagerAsync
 from app.application.interfaces.bunker import BunkerReader, BunkerSaver
 from app.application.interfaces.uuid_generator import UUIDGenerator
@@ -55,6 +56,11 @@ class AppProvider(Provider):
 
     get_bunker_interactor = provide(
         GetBunkerInteractor,
+        scope=Scope.REQUEST,
+    )
+
+    get_bunker_list_interactor = provide(
+        GetBunkerListInteractor,
         scope=Scope.REQUEST,
     )
 
