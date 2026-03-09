@@ -1,3 +1,4 @@
+from collections import namedtuple
 from enum import Enum, unique
 from pathlib import Path
 
@@ -10,6 +11,8 @@ LOG_DIR = BASE_DIR / "logs"
 LOG_FORMAT: str = (
     "[%(asctime)s.%(msecs)03d] %(module)10s:%(lineno)-3d %(levelname)-7s - %(message)s"
 )
+
+BUNKER_NAME_CONSTR = namedtuple("BUNKER_NAME_CONSTR", ["min", "max"])(3, 32)  # noqa: PYI024
 
 
 @unique

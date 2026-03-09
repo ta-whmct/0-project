@@ -19,3 +19,4 @@ class Bunker:
     max_volume: int
     current_volume: int
     pre_close_value: int
+    name: str

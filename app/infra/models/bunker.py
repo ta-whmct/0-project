@@ -1,8 +1,10 @@
 import uuid
 
-from sqlalchemy import UUID, Integer, String, func
+from sqlalchemy import UUID, CheckConstraint, Integer, String, and_, func
+from sqlalchemy.dialects.postgresql import CITEXT
 from sqlalchemy.orm import Mapped, mapped_column
 
+from ...config.constants import BUNKER_NAME_CONSTR
 from .base import Base
 
 
@@ -20,3 +22,14 @@ class Bunker(Base):
     max_volume: Mapped[int] = mapped_column(Integer, comment="kg")
     current_volume: Mapped[int] = mapped_column(Integer, comment="kg")
     pre_close_value: Mapped[int] = mapped_column(Integer, comment=" kg")
+    name: Mapped[str] = mapped_column(CITEXT, unique=True)
+
+    __table_args__ = (
+        CheckConstraint(
+            and_(
+                func.length(name) >= BUNKER_NAME_CONSTR.min,
+                func.length(name) <= BUNKER_NAME_CONSTR.max,
+            ),
+            name="name_length",
+        ),
+    )
