@@ -27,7 +27,7 @@ class PostgresConfig(BaseModel):
 
 
 class DatabaseConfig(BaseModel):
-    pg: PostgresConfig
+    pg: PostgresConfig = PostgresConfig()
     sqla: SQLAlchemyConfig = SQLAlchemyConfig()
 
     @property
