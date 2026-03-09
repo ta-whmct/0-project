@@ -24,6 +24,7 @@ class CreateBunkerInteractor:
             pre_close_value=dto.pre_close_value,
             current_volume=dto.current_volume,
             product_type=dto.product_type,
+            name=dto.name,
         )
         await self._saver.save(bunker)
         await self._trx_manager.commit()

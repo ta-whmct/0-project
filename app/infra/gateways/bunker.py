@@ -33,6 +33,7 @@ class BunkerGateway(BunkerReader, BunkerSaver):
             current_volume=bunker.current_volume,
             pre_close_value=bunker.pre_close_value,
             product_type=bunker.product_type,
+            name=bunker.name,
         )
         self._session.add(bunker_model)
 

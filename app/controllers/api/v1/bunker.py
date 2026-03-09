@@ -3,9 +3,12 @@ from uuid import UUID
 
 from dishka import FromDishka
 from dishka.integrations.fastapi import DishkaRoute
-from fastapi import APIRouter, HTTPException, Path
+from fastapi import APIRouter, Depends, HTTPException, Path
 from starlette import status
 
+from app.application.dto.bunker import NewBunker
+from app.application.interactors.bunker.create_bunker import CreateBunkerInteractor
+from app.application.interactors.bunker.depends import new_bunker_dep
 from app.application.interactors.bunker.get_bunker import GetBunkerInteractor
 from app.application.interactors.bunker.get_bunker_list import GetBunkerListInteractor
 from app.config.constants import ApiV1Endpoints
@@ -23,7 +26,7 @@ router = APIRouter(
     "",
     response_model=list[BunkerReadSchema],
 )
-async def get_bunker_list(
+async def get_bunker_list_endpoint(
     get_bunker_list: FromDishka[GetBunkerListInteractor],
 ) -> list[entities.Bunker] | None:
     bunkers = await get_bunker_list()
@@ -32,11 +35,22 @@ async def get_bunker_list(
     return None
 
 
+@router.post(
+    "/",
+    status_code=status.HTTP_201_CREATED,
+)
+async def create_bunker_endpoint(
+    new_bunker: Annotated[NewBunker, Depends(new_bunker_dep)],
+    create_bunker: FromDishka[CreateBunkerInteractor],
+) -> BunkerReadSchema:
+    return await create_bunker(new_bunker)
+
+
 @router.get(
     "/{bunker_id}/",
     response_model=BunkerReadSchema,
 )
-async def get_bunker_by_id(
+async def get_bunker_by_id_endpoint(
     bunker_id: Annotated[
         UUID,
         Path(description="Bunker ID", title="Bunker ID"),
