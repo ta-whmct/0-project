@@ -11,8 +11,11 @@ from sqlalchemy.ext.asyncio import (
 from app.application.interactors.bunker.create_bunker import CreateBunkerInteractor
 from app.application.interactors.bunker.get_bunker import GetBunkerInteractor
 from app.application.interactors.bunker.get_bunker_list import GetBunkerListInteractor
+from app.application.interactors.bunker.update_max_volume import (
+    SetBunkerMaxVolumeInteractor,
+)
 from app.application.interactors.transaction_manager import TransactionManagerAsync
-from app.application.interfaces.bunker import BunkerReader, BunkerSaver
+from app.application.interfaces.bunker import BunkerReader, BunkerSaver, BunkerSetter
 from app.application.interfaces.uuid_generator import UUIDGenerator
 from app.config.settings import settings
 from app.infra.database import new_engine, new_session_maker
@@ -48,10 +51,7 @@ class AppProvider(Provider):
     bunker_gateway = provide(
         BunkerGateway,
         scope=Scope.REQUEST,
-        provides=AnyOf[
-            BunkerReader,
-            BunkerSaver,
-        ],
+        provides=AnyOf[BunkerReader, BunkerSaver, BunkerSetter],
     )
 
     get_bunker_interactor = provide(
@@ -66,5 +66,10 @@ class AppProvider(Provider):
 
     create_new_bunker_interactor = provide(
         CreateBunkerInteractor,
+        scope=Scope.REQUEST,
+    )
+
+    set_bunker_max_volume_interactor = provide(
+        SetBunkerMaxVolumeInteractor,
         scope=Scope.REQUEST,
     )

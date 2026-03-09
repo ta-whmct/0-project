@@ -8,3 +8,10 @@ class NewBunker:
     current_volume: int
     pre_close_value: int
     name: str
+
+
+@dataclass
+class UpdateBunker:
+    max_volume: int | None
+    current_volume: int | None
+    pre_close_value: int | None

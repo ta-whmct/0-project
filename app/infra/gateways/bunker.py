@@ -1,14 +1,15 @@
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.application.interfaces.bunker import BunkerReader, BunkerSaver
+from app.infra.exceptions import InvalidMaxVolume
+from app.application.interfaces.bunker import BunkerReader, BunkerSaver, BunkerSetter
 from app.domain.entities import Bunker
 from app.infra import models
 
 
-class BunkerGateway(BunkerReader, BunkerSaver):
+class BunkerGateway(BunkerReader, BunkerSaver, BunkerSetter):
     def __init__(self, session: AsyncSession) -> None:
         self._session = session
 
@@ -52,3 +53,16 @@ class BunkerGateway(BunkerReader, BunkerSaver):
             )
             for bunker in bunkers.all()
         ]
+
+    async def set_max_volume(self, uuid: UUID, volume: int) -> None:
+        bunker = await self.read_by_uuid(uuid)
+        if bunker is not None:
+            if 0 < bunker.current_volume < volume:
+                raise InvalidMaxVolume(
+                    max_volume=bunker.max_volume,
+                    new_volume=volume,
+                    current_volume=bunker.current_volume,
+                )
+        await self._session.execute(
+            update(models.Bunker).filter_by(id=uuid).values(max_volume=volume)
+        )
