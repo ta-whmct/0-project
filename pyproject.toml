@@ -97,6 +97,6 @@ unfixable = []
 "**/__init__.py" = [
     "PLC0414", # useless-import-alias (PLC0414)
 ]
-"stuff.py" = [
-    "T20", # flake8-print (T20)
+"app/infra/migrations/versions/**.py" = [
+    "N999"
 ]
