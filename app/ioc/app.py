@@ -8,8 +8,8 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
 )
 
-from app.application.interactors.create_bunker import CreateBunkerInteractor
-from app.application.interactors.get_bunker import GetBunkerInteractor
+from app.application.interactors.bunker.create_bunker import CreateBunkerInteractor
+from app.application.interactors.bunker.get_bunker import GetBunkerInteractor
 from app.application.interactors.transaction_manager import TransactionManagerAsync
 from app.application.interfaces.bunker import BunkerReader, BunkerSaver
 from app.application.interfaces.uuid_generator import UUIDGenerator

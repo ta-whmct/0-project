@@ -6,7 +6,7 @@ from dishka.integrations.fastapi import DishkaRoute
 from fastapi import APIRouter, HTTPException, Path
 from starlette import status
 
-from app.application.interactors.get_bunker import GetBunkerInteractor
+from app.application.interactors.bunker.get_bunker import GetBunkerInteractor
 from app.controllers.schemas.bunker import BunkerReadSchema
 from app.domain import entities
 
